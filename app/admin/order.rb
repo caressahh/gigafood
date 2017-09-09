@@ -1,23 +1,28 @@
 ActiveAdmin.register Order do
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-permit_params :name, :description, :price, :delivery_date, :address, :phone, :allergies, :boxes
 
-action_item :confirm_order, only: :show do
-  link_to 'Confirm Order', '#'
-end
+  permit_params :name, :description, :price, :delivery_date, :address, :phone, :allergies, :boxes
 
-action_item :cancel_order, only: :show do
-  link_to 'Cancel Order', '#'
-end
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
+
+  action_item :confirm_order, only: :show do
+    link_to 'Confirm Order', confirm_admin_order_path(resource), method: :put
+  end
+
+  action_item :cancel_order, only: :show do
+    link_to 'Cancel Order', cancel_admin_order_path(resource), method: :put
+  end
+
+  member_action :confirm, method: :put do
+    @order = Order.find(params[:id])
+    @order.status = 'approved'
+    @order.save
+    redirect_to resource_path, notice: "Confirmed!"
+  end
+
+  member_action :cancel, method: :put do
+    @order = Order.find(params[:id])
+    @order.status = 'canceled'
+    @order.save
+    redirect_to resource_path, notice: "Canceled!"
+  end
 
 end

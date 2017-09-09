@@ -16,6 +16,10 @@ Feature: List orders
   Scenario: View a list of orders
     When I press "Orders"
     Then I should see "Bob Schmob"
-    And I press "View" for order "Bob Schmob" 
+    And I press "View" for order "Bob Schmob"
     Then I should see "Confirm Order"
     And I should see "Cancel Order"
+    Then I press "Confirm Order"
+    And I should see "Confirmed!"
+    Then I press "Cancel Order"
+    And I should see "Canceled!"
