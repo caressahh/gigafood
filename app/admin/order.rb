@@ -15,6 +15,7 @@ ActiveAdmin.register Order do
     @order = Order.find(params[:id])
     @order.status = 'approved'
     @order.save
+    ConfirmationMailer.confirmation_email(@order).deliver
     redirect_to resource_path, notice: "Confirmed!"
   end
 
