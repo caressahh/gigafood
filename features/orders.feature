@@ -6,6 +6,7 @@ Feature: List orders
   Background:
     Given an admin exists with email "admin@example.com" and password "password"
     And I'm loged in as admin user "admin@example.com"
+    And an user exists with email "user@example.com"
     Given I go to the dashboard
     And the following orders exist:
     | name       | description | price | order_date       | delivery_date    |
@@ -24,4 +25,6 @@ Feature: List orders
     Then I press "Cancel Order"
     And I should see "Canceled!"
 
-  Scenario: 
+  Scenario: Send order confirmation
+    When I press "Confirm Order"
+    Then "user@example.com" should receive an email
