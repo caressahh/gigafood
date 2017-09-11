@@ -6,13 +6,13 @@ Feature: List orders
   Background:
     Given an admin exists with email "admin@example.com" and password "password"
     And I'm loged in as admin user "admin@example.com"
-    And an user exists with email "user@example.com"
+    #And an user exists with email "user@example.com"
     Given I go to the dashboard
     And the following orders exist:
-    | name       | description | price | order_date       | delivery_date    |
-    | Bob Schmob | Bobs order  | 100   | 2017-11-15 10:00 | 2017-11-20 12:00 |
-    | John Smith | Johns order | 200   | 2017-10-05 11:00 | 2017-10-10 12:00 |
-    | Kari Lee   | Karis order | 300   | 2017-10-03 14:00 | 2017-10-08 12:00 |
+    | name       | description | price | order_date       | delivery_date    | email                  |
+    | Bob Schmob | Bobs order  | 100   | 2017-11-15 10:00 | 2017-11-20 12:00 | bob.schmob@example.com |
+    | John Smith | Johns order | 200   | 2017-10-05 11:00 | 2017-10-10 12:00 | john.smith@example.com |
+    | Kari Lee   | Karis order | 300   | 2017-10-03 14:00 | 2017-10-08 12:00 | kari.lee@example.com |
 
   Scenario: View a list of orders
     When I press "Orders"
@@ -26,5 +26,9 @@ Feature: List orders
     And I should see "Canceled!"
 
   Scenario: Send order confirmation
+    When I press "Orders"
+    And I press "View" for order "Bob Schmob"
     When I press "Confirm Order"
-    Then "user@example.com" should receive an email
+    Then "bob.schmob@example.com" should receive an email
+    And "bob.schmob@example.com" should see "Confirmation from Gigafood" in the subject
+    And "bob.schmob@example.com" should see "Thank you for choosing Gigafood.se, Bob Schmob" in the email
