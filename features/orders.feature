@@ -6,7 +6,6 @@ Feature: List orders
   Background:
     Given an admin exists with email "admin@example.com" and password "password"
     And I'm loged in as admin user "admin@example.com"
-    #And an user exists with email "user@example.com"
     Given I go to the dashboard
     And the following orders exist:
     | name       | description | price | order_date       | delivery_date    | email                  |
@@ -32,3 +31,11 @@ Feature: List orders
     Then "bob.schmob@example.com" should receive an email
     And "bob.schmob@example.com" should see "Confirmation from Gigafood" in the subject
     And "bob.schmob@example.com" should see "Thank you for choosing Gigafood.se, Bob Schmob" in the email
+
+  Scenario: Send order cancelation
+    When I press "Orders"
+    And I press "View" for order "Kari Lee"
+    When I press "Cancel Order"
+    Then "kari.lee@example.com" should receive an email
+    And "kari.lee@example.com" should see "Cancelation from Gigafood" in the subject
+    And "kari.lee@example.com" should see "Regretfully, your order has been canceled!" in the email

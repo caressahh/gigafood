@@ -23,7 +23,7 @@ ActiveAdmin.register Order do
     @order = Order.find(params[:id])
     @order.status = 'canceled'
     @order.save
+    ConfirmationMailer.cancelation_email(@order).deliver
     redirect_to resource_path, notice: "Canceled!"
   end
-
 end
