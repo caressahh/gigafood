@@ -23,7 +23,10 @@ module Gigafood
       generate.routing_specs false
       generate.controller_specs false
     end
-    #default_url_options[:host] = 'http://whatever.com'
+
+    config.i18n.available_locales = :en
+    config.i18n.default_locale = :en
+
     config.generators.system_tests = nil
 
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
