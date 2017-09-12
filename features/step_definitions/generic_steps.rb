@@ -1,3 +1,16 @@
+def path_to(page_name)
+  case page_name
+  when 'the dashboard'
+    admin_root_path
+  when 'the landing page'
+    root_path
+  when 'order page'
+    orders_path
+  else
+    error
+  end
+end
+
 Then(/^show me the page$/) do
   save_and_open_page
 end
@@ -11,15 +24,24 @@ Then(/^"([^"]*)" should receive an email$/) do |address|
   expect(mailbox_for(address).size).to eq 1
 end
 
-
 Then /^"([^"]*)" should see "(.*)" in the subject$/ do |address, text|
   open_email(address)
   expect(current_email.subject).to match Regexp.new(text)
-  #current_email.subject.should =~ Regexp.new(text)
 end
 
 Then /^"([^"]*)" should see "(.*)" in the email$/ do |address, text|
   open_email(address)
   expect(current_email.body).to match Regexp.new(text)
-  #current_email.body.should =~ Regexp.new(text)
+end
+
+When(/^I click on "([^"]*)"$/) do |link_or_button|
+  click_link_or_button link_or_button
+end
+
+When /^(?:I )go to (.+)$/ do |page_name|
+  visit path_to(page_name)
+end
+
+Then /^(?:|I )should be on (.+)$/ do |page_name|
+  expect(URI.parse(current_url).path).to eq path_to page_name
 end
