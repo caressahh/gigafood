@@ -15,6 +15,4 @@ RSpec.describe Order, type: :model do
   it { is_expected.to have_db_column :boxes }
   it { is_expected.to have_db_column :status }
   it { is_expected.to have_db_column :email }
-  it { is_expected.to have_db_column :id }
-  it { is_expected.to have_db_column :id }
 end
