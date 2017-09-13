@@ -19,7 +19,6 @@
     src:font-url('FuturaPTBook.otf') format("opentype");
 }
 
-
 body {
     font-family: futura-pt,Arial,Helvetica,sans-serif;
     font-size: 21px;
@@ -32,8 +31,13 @@ body {
 }
 
 .container {
-  margin-right: 10px;
-  margin-left: 10px;
+  max-width: 850px;
+  margin: auto;
+}
+
+.order-container {
+  margin-right: 20px;
+  width: 400px;
 }
 
 .menu-item-title {
