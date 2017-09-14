@@ -10,7 +10,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20170913073744) do
 
   # These are extensions that must be enabled in order to support this database
@@ -104,8 +103,5 @@ ActiveRecord::Schema.define(version: 20170913073744) do
     t.string "billing_email"
   end
 
-<<<<<<< HEAD
-=======
   add_foreign_key "dishes", "categories"
->>>>>>> 5af8453453e59794e5de4a26bbd1f3797c278faa
 end
